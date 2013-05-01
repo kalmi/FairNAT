@@ -313,6 +313,7 @@ function iptables
         $BIN_IPT -t mangle -A $FN_PREROUTING -p tcp --dport ssh -j TOS --set-tos Minimize-Delay
         $BIN_IPT -t mangle -A $FN_PREROUTING -p tcp --dport ftp -j TOS --set-tos Minimize-Delay
         $BIN_IPT -t mangle -A $FN_PREROUTING -p tcp --dport ftp-data -j TOS --set-tos Maximize-Throughput
+        $BIN_IPT -t mangle -A $FN_PREROUTING -p udp --dport 53 -j TOS --set-tos Minimize-Delay
 
         # Correcting TOS for large packets with Minimize-Delay-TOS
         $BIN_IPT -t mangle -A $FN_CHK_TOS -p tcp -m length --length 0:512  -j RETURN
