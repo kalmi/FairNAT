@@ -324,7 +324,7 @@ function iptables
         $BIN_IPT -t mangle -A $FN_PREROUTING -m tos --tos Minimize-Delay -j $FN_CHK_TOS
 
         # Modifying TOS for TCP control packets: (from www.docum.org / Stef Coene)
-        $BIN_IPT -t mangle -A $FN_ACK_TOS -m tos --tos ! Normal-Service -j RETURN
+        $BIN_IPT -t mangle -A $FN_ACK_TOS -m tos ! --tos Normal-Service -j RETURN
         $BIN_IPT -t mangle -A $FN_ACK_TOS -p tcp -m length --length 0:256 -j TOS --set-tos Minimize-Delay
         $BIN_IPT -t mangle -A $FN_ACK_TOS -p tcp -m length --length 256: -j TOS --set-tos Maximize-Throughput
         $BIN_IPT -t mangle -A $FN_ACK_TOS -j RETURN
